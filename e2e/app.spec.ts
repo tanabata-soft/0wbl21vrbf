@@ -40,6 +40,28 @@ test('短冊ジャケットが開き、タップで裏面パネルに反転す�
   await expect(page.locator('#flip')).not.toHaveClass(/flipped/);
 });
 
+test('裏面パネルは小さい画面でもスクロールなしで全内容が収まる', async ({ page }) => {
+  // iPhone SE 相当の小さい画面で、裏面パネルが収まりきること（オーナー指示 2026-11-12）
+  await page.setViewportSize({ width: 375, height: 667 });
+  await page.goto('/');
+  await page.locator('#flip').click();
+  await expect(page.locator('#flip')).toHaveClass(/flipped/);
+  const nb = page.locator('.backnote');
+  const dims = await nb.evaluate((el) => ({ sh: el.scrollHeight, ch: el.clientHeight }));
+  expect(dims.sh).toBeLessThanOrEqual(dims.ch + 1);
+  // 最後の曲目行とバージョン表示がパネルの内側に見えている
+  const panelBox = await nb.boundingBox();
+  const versionBox = await nb.locator('#version-line').boundingBox();
+  const lastTrackBox = await nb.locator('.bn-track').last().boundingBox();
+  expect(panelBox).not.toBeNull();
+  expect(versionBox).not.toBeNull();
+  expect(lastTrackBox).not.toBeNull();
+  if (panelBox && versionBox && lastTrackBox) {
+    expect(lastTrackBox.y + lastTrackBox.height).toBeLessThanOrEqual(panelBox.y + panelBox.height + 1);
+    expect(versionBox.y + versionBox.height).toBeLessThanOrEqual(panelBox.y + panelBox.height + 1);
+  }
+});
+
 test('再生ボタンから1曲目が始まり、「次」で2曲目に進む', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: '全曲再生' }).click();

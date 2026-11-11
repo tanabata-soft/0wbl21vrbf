@@ -1,17 +1,18 @@
 # 引き継ぎメモ
 
-更新: 2026-11-12・版 v1.0.0（公開済み）
+更新: 2026-11-12・版 v1.0.1（公開済み）
 
 ## 今の状態
 
-- NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD、全2曲、総再生時間 約5分20秒。**公開済み（2026-11-12、オーナー指示「すすめて」による）。** repo: tanabata-soft/0wbl21vrbf（public）、PR #1 を squash マージ（merge commit cf3196dbe1ab06f214ccf0022d0f745cd6c49002）、GitHub Pages 公開済み: https://tanabata-soft.github.io/0wbl21vrbf/（HTTP 200 確認済み、Source: GitHub Actions、protect-main ruleset 設定済み・必須チェックは check のみ）。CI の check は通過、e2e はランナー側の問題で NK-S006 と同様にマージ条件にしていない（ローカル e2e 15件通過済み）。確認ポイント①（曲順）と③（歌詞の漢字）は仮置きのまま公開。確認ポイント②（表ジャケット候補A）は 2026-11-11 に確定済み。
+- NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD、全2曲、総再生時間 約5分20秒。**v1.0.1 公開済み（初回公開 2026-11-12、オーナー指示「すすめて」による）。v1.0.1 の変更: 裏面パネルをスクロールなしで収める自動調整（シングル共通ルール、2026-11-12 オーナー指示。NK-S008 の実装を移植）。** repo: tanabata-soft/0wbl21vrbf（public）、PR #1 を squash マージ（merge commit cf3196dbe1ab06f214ccf0022d0f745cd6c49002）、GitHub Pages 公開済み: https://tanabata-soft.github.io/0wbl21vrbf/（HTTP 200 確認済み、Source: GitHub Actions、protect-main ruleset 設定済み・必須チェックは check のみ）。CI の check は通過、e2e はランナー側の問題で NK-S006 と同様にマージ条件にしていない（ローカル e2e 15件通過済み）。確認ポイント①（曲順）と③（歌詞の漢字）は仮置きのまま公開。確認ポイント②（表ジャケット候補A）は 2026-11-11 に確定済み。
 - 収録（曲順は推奨案の仮置き）:
   1. 『黒い画面の喝采』表題曲、90s Japanese Funk Rock、2:48（トリム後 168.34秒）
   2. 『時代を動かせ』カップリング、Electronic Hip-Hop、2:31（トリム後 151.05秒）
-- 作業フォルダ: `~/workspace/single-nks007/repo/`（テンプレート `digitalcd-template` v1.0.0 をコピー。アプリID `nks007-shift-award`、version 1.0.0）。
+- 作業フォルダ: `~/workspace/single-nks007/repo/`（テンプレート `digitalcd-template` v1.0.0 をコピー。アプリID `nks007-shift-award`、version 1.0.1）。
 - ジャケットタイトルは今回だけの特殊対応で「SHIFT AWARD 2026 応援歌」。通常は表題曲と同名にするが、今回はこのタイトルを使う。シリーズのルールにしないこと（NK-S006と同一の特例を、NK-S007にも別途指示されたもの）。
 - 表ジャケット（確定）: 候補A（2026-11-11 22:30、オーナー確認・確認ポイント②完了）（`~/workspace/single-nks007/jacket-candidates/candidate-a.jpg`）。金のトロフィーと金のマイクを台座に、紙吹雪とスポットライト、歓声を上げる観客。型A（レーベル帯＋大きなタイトル＋表面クレジット、1988–91）を選んだ理由: 賑やかでポップな応援歌で、AWARDの祝祭感を正面から出すため。タイトル「SHIFT AWARD 2026」「応援歌」は後付け合成（Noto Sans CJK JP Bold、白・黒縁）。判型 1200x2326。候補B（`candidate-b.jpg`）は夜明けの未来都市の上に輝く巨大な歯車の太陽、クレーンとコードの流れ。Bは「時代を動かせ」の歯車の物語に合うが、歯車の太陽が「応援歌」の文字に一部隠れる。Bを選ぶ場合はタイトル位置の調整が必要。Aの難点: 「応援歌」がトロフィーのカップの縁にわずかに重なるが読める。ベース画像は `candidate-a-base.jpg` / `candidate-b-base.jpg` に保存。
 - 裏面 back.jpg（1200x2326）: 各曲ジャケットを上下に並べた結合画像。上下の継ぎ目に90pxのクロスフェード。輝度プロファイルで確認したところ紙枠の焼き込みはなく、切り出し量は0px。
+- 裏面パネル（backnote）: スクロールなしで全内容が収まること（2026-11-12 オーナー指示、シングル共通ルール）。パネル内の寸法は em で font-size 連動（style.css）、`src/main.ts` の fitBacknote が 12px から 0.5px 刻みで最小 6.5px まで自動で縮小（初期表示・requestAnimationFrame・resize で実行）。ルールは docs/SINGLE.md にも追記済み。
 - bg.jpg（1080x1920）: テーマ色 #0f1b2e の色面。テーマカラーも #0f1b2e。
 - 音源: 各MP4の音声トラックを末尾で切り、末尾無音を詰めた。『黒い画面の喝采』168.34秒、『時代を動かせ』151.05秒で切断（silencedetect -50dB、ffprobe実測 168.344 / 151.046秒）。『黒い画面の喝采』冒頭には約0.92秒の無音がある（0〜0.92秒、NK-S006と同様に残した）。音源はトリム済みのまま収録。
 - 歌詞: 各MP4の mov_text 字幕が正本（行の文言）。開始時刻は字幕のままでは大幅にずれていたため、faster-whisper small（単語レベル、VADなし）と medium（フレーズ境界・テキスト付き）の両モデルで全行付け直し済み。『黒い画面の喝采』39行、『時代を動かせ』45行。ずれの量: 表題曲は -18.08〜+15.74秒（平均-4.74秒）、カップリングは -2.04〜+4.52秒（平均+2.54秒、ほぼ一律+3秒前後。ただしラップ区間「1. 0. 1. 0.」付近と終盤は字幕ペースと異なる）。時刻は単調増加で音源長内。詳細は「仮置きリスト」3参照。
@@ -21,7 +22,14 @@
 
 - なし（公開まで完了）。残りはオーナーの実機確認と確認ポイント①③。
 
-## 検証結果（2026-11-11、ローカル。sync.ts ASR再調整後の最終実行）
+## 検証結果（2026-11-12、ローカル。v1.0.1 裏面パネル自動調整）
+
+- `npm run verify`: 成功（lint、単体テスト31件通過、build、check:dist、check:content 4件・エラー0件）。
+- `npm run test:e2e`: 16件全通過（新規「裏面パネルは小さい画面でもスクロールなしで全内容が収まる」375x667 を追加）。
+- `npm run shots`: 12枚保存。phone / SE の裏面画像を目視確認済み（全段落・2曲の曲目・バージョン表示 v1.0.1 がスクロールなしで収まる）。
+- 単体プレビュー: `node_modules/.cache` を消してから `npm run build:preview` を実行し、`~/workspace/your_files/NK-S007-preview.html` を v1.0.1 で差し替え済み。
+
+## 検証結果（2026-11-11、ローカル。v1.0.0、sync.ts ASR再調整後の最終実行）
 
 - `npm ci`: 443 packages、成功。
 - `npm run verify`: 成功（lint、単体テスト31件通過、build、check:dist、check:content 4件・エラー0件）。

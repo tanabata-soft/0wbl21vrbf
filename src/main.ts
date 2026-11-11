@@ -83,6 +83,19 @@ if (SINGLE) {
   vl.addEventListener('click', (e) => e.stopPropagation());
   panel.append(vl);
   $('.flip .face.back').append(panel);
+  // 裏面はスクロールなしで全面が収まるように、パネルの font-size を自動調整する
+  // （中身の寸法は style.css 側で em 連動。最小 6.5px まで縮める）オーナー指示 2026-11-12
+  const fitBacknote = (): void => {
+    let size = 12;
+    panel.style.fontSize = `${size}px`;
+    while (size > 6.5 && panel.scrollHeight > panel.clientHeight) {
+      size -= 0.5;
+      panel.style.fontSize = `${size}px`;
+    }
+  };
+  fitBacknote();
+  requestAnimationFrame(fitBacknote);
+  addEventListener('resize', fitBacknote);
   // インストール入口（残った .book-foot）は曲目画面の末尾へ移す
   const foot = document.querySelector('.book-foot');
   if (foot) $('.backcover').append(foot);
