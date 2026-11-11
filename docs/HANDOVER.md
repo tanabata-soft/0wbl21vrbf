@@ -1,9 +1,10 @@
 # 引き継ぎメモ
 
-更新: 2026-11-12・版 v1.0.1（公開済み）
+更新: 2026-11-12・版 v1.0.2（公開済み）
 
 ## 今の状態
 
+- v1.0.2（2026-11-12）: 再生中にトップへ戻っても再生を止めない挙動に統一（シングル・アルバム共通ルール、オーナー指示 2026-11-12。旧仕様「トップへ戻ると止まる」2026-11-04 は廃止）。トップの「再生」は、再生中の曲の再生画面へ戻る（1曲目から再生し直さない）。テンプレート（digitalcd-engine commit 555543d）と同一の変更で、シリーズ共通チャットから反映・再公開した。e2e は新挙動のテストに置き換え（計16件）。ローカルの verify・e2e・shots 通過、プレビュー（`~/workspace/your_files/NK-S007-preview.html`）も v1.0.2 に更新。
 - NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD、全2曲、総再生時間 約5分20秒。**v1.0.1 公開済み（初回公開 2026-11-12、オーナー指示「すすめて」による）。v1.0.1 の変更: 裏面パネルをスクロールなしで収める自動調整（シングル共通ルール、2026-11-12 オーナー指示。NK-S008 の実装を移植）。** repo: tanabata-soft/0wbl21vrbf（public）、PR #1 を squash マージ（merge commit cf3196dbe1ab06f214ccf0022d0f745cd6c49002）、GitHub Pages 公開済み: https://tanabata-soft.github.io/0wbl21vrbf/（HTTP 200 確認済み、Source: GitHub Actions、protect-main ruleset 設定済み・必須チェックは check のみ）。CI の check は通過、e2e はランナー側の問題で NK-S006 と同様にマージ条件にしていない（ローカル e2e 15件通過済み）。確認ポイント①（曲順）と③（歌詞の漢字）は仮置きのまま公開。確認ポイント②（表ジャケット候補A）は 2026-11-11 に確定済み。
 - v1.0.1 公開記録: PR #5 を squash マージ（merge commit dea7adfb5ac6ef98d4ae333be25e83c8eb9cb219）、ブランチ publish/nk-s007-v1.0.1 は削除済み。GitHub Pages 再デプロイ成功、https://tanabata-soft.github.io/0wbl21vrbf/ は HTTP 200、配信中 JS に version 1.0.1 が含まれることを確認済み。CI の check は通過（e2e は従来どおりマージ条件にしていない。ローカル e2e 16件通過済み）。
 - 収録（曲順は推奨案の仮置き）:

@@ -75,16 +75,27 @@ test('再生ボタンから1曲目が始まり、「次」で2曲目に進む', 
   await expect(page.locator('body')).toHaveAttribute('data-track', '1');
 });
 
-test('再生中にトップへ戻ると曲が止まる', async ({ page }) => {
+test('再生中にトップへ戻っても曲は止まらず、トップの再生で再生中の曲の画面へ戻る', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: '全曲再生' }).click();
   await expect(page.locator('#view-player')).toBeVisible();
   await expect(page.locator('#play-lb')).toHaveText('一時停止', { timeout: 10_000 });
+  // 2曲目へ進めてからトップへ戻る（再生中の曲は2曲目のままであること）
+  await page.getByRole('button', { name: '次の曲' }).click();
+  await expect(page.locator('#p-title')).toContainText('時代を動かせ');
+  await expect(page.locator('body')).toHaveAttribute('data-track', '1');
   await page.getByRole('button', { name: 'トップに戻る' }).click();
   await expect(page.locator('#view-cover')).toBeVisible();
-  await expect(page.locator('body')).toHaveAttribute('data-playing', '0');
+  // トップへ戻っても再生は止まらない（オーナー指示 2026-11-12）
+  await expect(page.locator('body')).toHaveAttribute('data-playing', '1');
   const paused = await page.evaluate(() => document.querySelector('audio')!.paused);
-  expect(paused).toBe(true);
+  expect(paused).toBe(false);
+  // トップの再生を押すと、1曲目からではなく再生中の曲（2曲目）の再生画面へ戻る
+  await page.getByRole('button', { name: '全曲再生' }).click();
+  await expect(page.locator('#view-player')).toBeVisible();
+  await expect(page.locator('#p-title')).toContainText('時代を動かせ');
+  await expect(page.locator('body')).toHaveAttribute('data-track', '1');
+  await expect(page.locator('body')).toHaveAttribute('data-playing', '1');
 });
 
 test('再生と一時停止で表示が切り替わる', async ({ page }) => {
