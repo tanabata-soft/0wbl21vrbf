@@ -2,10 +2,26 @@
 
 更新: 2026-11-12・版 v1.0.3（公開済み）
 
+## 【デジタルCD台帳反映用レポート】
+
+- カタログ番号：NK-S007
+- タイトル：SHIFT AWARD 2026 応援歌
+- 形態：シングル
+- 制作担当：NK-S007 制作チャット
+- 状態：確認待ち
+- 現行バージョン：1.0.3
+- リポジトリ：tanabata-soft/0wbl21vrbf
+- 公開URL：https://tanabata-soft.github.io/0wbl21vrbf/
+- 収録曲数：2
+- 総再生時間：約5分20秒
+- 残件・仮置き：確認ポイント①（曲順）仮置き、③（歌詞の漢字）仮置き、オーナー実機確認待ち
+- HANDOVER.md更新：済
+
 ## 今の状態
 
 - v1.0.3（2026-11-12）: 歌詞タップでその行から再生できるようにした（アルバム・シングル共通ルール、オーナー指示 2026-11-12。テンプレート digitalcd-engine commit 38b215d と同一の実装）。ドラッグによる歌詞スクロールではシークしない（タップ判定は移動量とスクロール量で分ける）。e2e にタップシーク／ドラッグではシークしないテストを追加（計18件）。ローカルの verify・e2e・shots 通過、プレビュー（`~/workspace/your_files/NK-S007-preview.html`）も v1.0.3 に更新。
 - v1.0.3 公開記録: PR #10 を squash マージ（merge commit 183c3f759bcd558d3f6f0efc5880dbcb40be25ef）、ブランチ update/nk-s007-v1.0.3 は削除済み。GitHub Pages 再デプロイ成功、https://tanabata-soft.github.io/0wbl21vrbf/ は HTTP 200、配信中 JS に version 1.0.3 が含まれることを確認済み。CI の check は通過（e2e は従来どおりマージ条件にしていない。ローカル e2e 18件通過済み）。
+- 実機確認（2026-11-12、シリーズ制作チャットでオーナー確認）: v1.0.3 の新挙動（歌詞タップでその行から再生、ドラッグによる歌詞スクロールでシークしない、再生中にトップへ戻っても再生が止まらない）は問題なし。確認ポイント①（曲順）と③（歌詞の漢字）は引き続き仮置き。
 - v1.0.2（2026-11-12）: 再生中にトップへ戻っても再生を止めない挙動に統一（シングル・アルバム共通ルール、オーナー指示 2026-11-12。旧仕様「トップへ戻ると止まる」2026-11-04 は廃止）。トップの「再生」は、再生中の曲の再生画面へ戻る（1曲目から再生し直さない）。テンプレート（digitalcd-engine commit 555543d）と同一の変更で、シリーズ共通チャットから反映・再公開した。e2e は新挙動のテストに置き換え（計16件）。ローカルの verify・e2e・shots 通過、プレビュー（`~/workspace/your_files/NK-S007-preview.html`）も v1.0.2 に更新。
 - v1.0.2 公開記録: PR #8 を squash マージ（merge commit b580c5deac5c12d555f6eb64087f4d16fe71652c）、ブランチ update/nk-s007-v1.0.2 は削除済み。GitHub Pages 再デプロイ成功、https://tanabata-soft.github.io/0wbl21vrbf/ は HTTP 200、配信中 JS に version 1.0.2 が含まれることを確認済み。CI の check は通過（e2e は従来どおりマージ条件にしていない。ローカル e2e 16件通過済み）。
 - NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD、全2曲、総再生時間 約5分20秒。**v1.0.1 公開済み（初回公開 2026-11-12、オーナー指示「すすめて」による）。v1.0.1 の変更: 裏面パネルをスクロールなしで収める自動調整（シングル共通ルール、2026-11-12 オーナー指示。NK-S008 の実装を移植）。** repo: tanabata-soft/0wbl21vrbf（public）、PR #1 を squash マージ（merge commit cf3196dbe1ab06f214ccf0022d0f745cd6c49002）、GitHub Pages 公開済み: https://tanabata-soft.github.io/0wbl21vrbf/（HTTP 200 確認済み、Source: GitHub Actions、protect-main ruleset 設定済み・必須チェックは check のみ）。CI の check は通過、e2e はランナー側の問題で NK-S006 と同様にマージ条件にしていない（ローカル e2e 15件通過済み）。確認ポイント①（曲順）と③（歌詞の漢字）は仮置きのまま公開。確認ポイント②（表ジャケット候補A）は 2026-11-11 に確定済み。
