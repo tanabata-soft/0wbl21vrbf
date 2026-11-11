@@ -109,8 +109,8 @@ let currentView = 'cover';
 
 /* ---------- 画面遷移 ---------- */
 function go(name: string): void {
-  // シングル形態では、トップへ戻ったら曲を止める（オーナー指示 2026-11-04）
-  if (SINGLE && name === 'cover' && !audio.paused) audio.pause();
+  // トップへ戻っても再生は止めない（シングル・アルバム共通。オーナー指示 2026-11-12。
+  // 旧シングル仕様「トップへ戻ると止まる」2026-11-04 は廃止）
   currentView = name;
   document.querySelectorAll('.view').forEach((v) => v.classList.remove('on'));
   $(`#view-${name}`).classList.add('on');
