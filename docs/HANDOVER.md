@@ -5,6 +5,7 @@
 ## 今の状態
 
 - NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD、全2曲、総再生時間 約5分20秒。**v1.0.1 公開済み（初回公開 2026-11-12、オーナー指示「すすめて」による）。v1.0.1 の変更: 裏面パネルをスクロールなしで収める自動調整（シングル共通ルール、2026-11-12 オーナー指示。NK-S008 の実装を移植）。** repo: tanabata-soft/0wbl21vrbf（public）、PR #1 を squash マージ（merge commit cf3196dbe1ab06f214ccf0022d0f745cd6c49002）、GitHub Pages 公開済み: https://tanabata-soft.github.io/0wbl21vrbf/（HTTP 200 確認済み、Source: GitHub Actions、protect-main ruleset 設定済み・必須チェックは check のみ）。CI の check は通過、e2e はランナー側の問題で NK-S006 と同様にマージ条件にしていない（ローカル e2e 15件通過済み）。確認ポイント①（曲順）と③（歌詞の漢字）は仮置きのまま公開。確認ポイント②（表ジャケット候補A）は 2026-11-11 に確定済み。
+- v1.0.1 公開記録: PR #5 を squash マージ（merge commit dea7adfb5ac6ef98d4ae333be25e83c8eb9cb219）、ブランチ publish/nk-s007-v1.0.1 は削除済み。GitHub Pages 再デプロイ成功、https://tanabata-soft.github.io/0wbl21vrbf/ は HTTP 200、配信中 JS に version 1.0.1 が含まれることを確認済み。CI の check は通過（e2e は従来どおりマージ条件にしていない。ローカル e2e 16件通過済み）。
 - 収録（曲順は推奨案の仮置き）:
   1. 『黒い画面の喝采』表題曲、90s Japanese Funk Rock、2:48（トリム後 168.34秒）
   2. 『時代を動かせ』カップリング、Electronic Hip-Hop、2:31（トリム後 151.05秒）
