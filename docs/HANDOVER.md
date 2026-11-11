@@ -1,10 +1,10 @@
 # 引き継ぎメモ
 
-更新: 2026-11-11・版 v1.0.0（ローカルプレビューまで完了・未公開）
+更新: 2026-11-12・版 v1.0.0（公開済み）
 
 ## 今の状態
 
-- NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD、全2曲、総再生時間 約5分20秒。**ローカルのみ。GitHubへの公開はしていない（repo未作成、PR・CI・マージなし）。**公開はオーナーの指示があってから。
+- NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD、全2曲、総再生時間 約5分20秒。**公開済み（2026-11-12、オーナー指示「すすめて」による）。** repo: tanabata-soft/0wbl21vrbf（public）、PR #1 を squash マージ（merge commit cf3196dbe1ab06f214ccf0022d0f745cd6c49002）、GitHub Pages 公開済み: https://tanabata-soft.github.io/0wbl21vrbf/（HTTP 200 確認済み、Source: GitHub Actions、protect-main ruleset 設定済み・必須チェックは check のみ）。CI の check は通過、e2e はランナー側の問題で NK-S006 と同様にマージ条件にしていない（ローカル e2e 15件通過済み）。確認ポイント①（曲順）と③（歌詞の漢字）は仮置きのまま公開。確認ポイント②（表ジャケット候補A）は 2026-11-11 に確定済み。
 - 収録（曲順は推奨案の仮置き）:
   1. 『黒い画面の喝采』表題曲、90s Japanese Funk Rock、2:48（トリム後 168.34秒）
   2. 『時代を動かせ』カップリング、Electronic Hip-Hop、2:31（トリム後 151.05秒）
@@ -19,7 +19,7 @@
 
 ## やりかけ
 
-- なし（ローカルビルド・検証・プレビューまで完了）。残りはオーナーの実機確認と確認ポイント①③。公開は未着手。
+- なし（公開まで完了）。残りはオーナーの実機確認と確認ポイント①③。
 
 ## 検証結果（2026-11-11、ローカル。sync.ts ASR再調整後の最終実行）
 
@@ -31,10 +31,10 @@
 
 ## 次にやること(優先順)
 
-1. オーナーの実機確認（単体ファイルプレビュー `~/workspace/your_files/NK-S007-preview.html`）。
+1. オーナーの実機確認（公開URL https://tanabata-soft.github.io/0wbl21vrbf/ または単体ファイルプレビュー `~/workspace/your_files/NK-S007-preview.html`）。
 2. 確認ポイント① 曲順・表題曲の確定（推奨案: 1.黒い画面の喝采、2.時代を動かせ）。
 3. 確認ポイント③ 歌詞の漢字の最終確認（下記）。
-5. 確認が終わり、オーナーの指示があれば GitHub org tanabata-soft へ公開（ランダム文字列の repo 名、PR → CI → squash マージ → GitHub Pages。公開時は NK-S006 の手順と MEMORY.md の GitHub App 権限の注意を参照）。
+4. （完了）GitHub org tanabata-soft へ公開済み（2026-11-12、repo tanabata-soft/0wbl21vrbf、PR #1 squash マージ → GitHub Pages）。
 
 ## 注意・気づいたこと
 
