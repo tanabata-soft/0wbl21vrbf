@@ -36,6 +36,8 @@ export interface GameSongDef {
   jacketUrl: string;
   frameInset: number;
   slidePosition?: string;
+  /** ボーナストラックなら true（スライドに金の BONUS チップが出る） */
+  bonus?: boolean;
   accent: string;
   album: string;
   genre: string;
