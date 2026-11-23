@@ -24,8 +24,6 @@ export interface SongEntry {
   frameInset: number;
   /** カルーセルでのジャケットの寄せ（CSS の object-position）。未指定は中央 */
   slidePosition?: string;
-  /** ボーナストラックなら true（スライドに金の BONUS チップが出る）。作品ごとの値は songs.ts に置く */
-  bonus?: boolean;
   /**
    * 曲のテーマ色（#rrggbb）。メニューの枠・光・ボタンなどのアクセント色に使う
    * （選曲に合わせて切り替わる。オーナー決定 2026-11-20 のパターン3）。
@@ -35,6 +33,8 @@ export interface SongEntry {
   accent: string;
   /** accent の RGB 三つ組み（CSS の rgb(var(--song-accent-rgb) / α) 用） */
   accentRgb: string;
+  /** ボーナストラックか（CD 側 tracks.ts の bonus と一致させる。スライドに BONUS チップが出る） */
+  bonus: boolean;
   /** 収録アルバム名（表示用） */
   album: string;
   genre: string;
@@ -58,9 +58,9 @@ export const SONGS: SongEntry[] = SONG_DEFS.map((def) => ({
   jacketUrl: def.jacketUrl,
   frameInset: def.frameInset,
   slidePosition: def.slidePosition,
-  bonus: def.bonus,
   accent: def.accent,
   accentRgb: accentRgbOf(def.accent),
+  bonus: def.bonus ?? false,
   album: def.album,
   genre: def.genre,
 }));

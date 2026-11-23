@@ -22,6 +22,16 @@ def accent(path: str) -> str:
     px = np.asarray(im).reshape(-1, 3).astype(float) / 255.0
     mx, mn = px.max(axis=1), px.min(axis=1)
     sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
+    if sat.mean() < 0.02:
+        # モノクロの絵（NK-S009『Flavor』など）: 色味が無いので、平均の
+        # かすかな色相（無ければ暖色 36°）を残した中立色にする。最終的には
+        # 作品の世界観に合わせて songs.ts で手で決め直してよい
+        avg = px.mean(axis=0)
+        h, _l, s = colorsys.rgb_to_hls(*avg)
+        if s < 0.02:
+            h, s = 36 / 360, 0.30
+        r, g, b = colorsys.hls_to_rgb(h, 0.66, min(s, 0.35))
+        return '#%02x%02x%02x' % (round(r * 255), round(g * 255), round(b * 255))
     w = (sat ** 2) * (0.35 + mx)
     avg = (px * w[:, None]).sum(axis=0) / w.sum()
     h, l, s = colorsys.rgb_to_hls(*avg)

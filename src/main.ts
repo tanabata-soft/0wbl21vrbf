@@ -13,10 +13,10 @@ import {
   prevIndex,
 } from './logic';
 import { exposeTestApi, setData, setupDebug } from './debug';
-import { enterGameMode, exitGameMode } from './game/game-main';
 import { setupInstallGuide } from './install';
-import { setupUpdateBanner } from './pwa';
+import { requestPersistentStorage, setupUpdateBanner } from './pwa';
 import { downloadAllAudio } from './download';
+import { enterGameMode, exitGameMode } from './game/game-main';
 
 const $ = <T extends HTMLElement>(s: string): T => {
   const el = document.querySelector(s);
@@ -97,7 +97,7 @@ if (SINGLE) {
   fitBacknote();
   requestAnimationFrame(fitBacknote);
   addEventListener('resize', fitBacknote);
-  // インストール入口（残った .book-foot）は曲目画面の末尾へ移す
+  // バージョン表示（.book-foot）は曲目画面の末尾へ移す
   const foot = document.querySelector('.book-foot');
   if (foot) $('.backcover').append(foot);
 }
@@ -405,6 +405,7 @@ lyrBoxEl.addEventListener('pointerdown', (e) => {
   lyrInteractStart();
 });
 lyrBoxEl.addEventListener('pointerup', lyrInteractEnd);
+lyrBoxEl.addEventListener('pointercancel', lyrInteractEnd);
 lyrBoxEl.addEventListener('click', (e) => {
   const p = (e.target as HTMLElement).closest('p');
   if (!p || !lyrBoxEl.contains(p)) return;
@@ -425,7 +426,6 @@ lyrBoxEl.addEventListener('click', (e) => {
   syncLyrics();
   scrollLyricsToCurrent(true);
 });
-lyrBoxEl.addEventListener('pointercancel', lyrInteractEnd);
 lyrBoxEl.addEventListener(
   'wheel',
   () => {
@@ -607,6 +607,8 @@ exposeTestApi({
   },
 });
 setupUpdateBanner($('#update-banner'), $('#update-button'), $('#update-later'));
+// 音源キャッシュがブラウザの容量整理で消えないよう、起動時に永続化を要求しておく
+void requestPersistentStorage();
 // 初回一括ダウンロード（全音源を端末に入れる）。最初の表示が落ち着いてから裏で始める。
 {
   const dlBanner = $('#dl-banner');
@@ -620,6 +622,8 @@ setupUpdateBanner($('#update-banner'), $('#update-button'), $('#update-later'));
       dlLabel.textContent = `ダウンロード中… ${done}/${total}曲`;
     }).then((result) => {
       if (result === 'complete') {
+        // 全音源が入った時点で改めて永続化を要求する（この時点が一番通りやすい）
+        void requestPersistentStorage();
         dlLabel.textContent = 'ダウンロードが終わりました';
         window.setTimeout(() => {
           dlBanner.hidden = true;

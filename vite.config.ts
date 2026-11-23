@@ -6,7 +6,10 @@ import { VitePWA } from 'vite-plugin-pwa';
 const { version, name: appId } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string; name: string };
 
 // アプリ名・色はここと index.html の2か所だけ。新しいアプリを作るときに書き換える。
-const APP_NAME = 'SHIFT AWARD 2026 応援歌 ― デジタルシングルCD';
+// APP_NAME はホーム画面に出る名前（manifest の name／short_name）なので、作品名そのものにする。
+// index.html の <title> と apple-mobile-web-app-title は「APP_NAME ― 形式名」の形でそろえる
+// （scripts/content-checks.mjs の app-name／manifest-name 検査が食い違いを止める）。
+const APP_NAME = 'SHIFT AWARD 2026 応援歌';
 const THEME_COLOR = '#0f1b2e';
 const BACKGROUND_COLOR = '#0f1b2e';
 // 音源の実行時キャッシュ名。src/download.ts（初回一括ダウンロード）も同じ名前を使う（define で埋め込む）。
@@ -35,7 +38,7 @@ export default defineConfig({
       includeAssets: ['icons/apple-touch-icon.png', 'icons/icon-192.png'],
       manifest: {
         name: APP_NAME,
-        short_name: 'SHIFT AWARD 2026',
+        short_name: APP_NAME,
         description: 'NK-S007『SHIFT AWARD 2026 応援歌』デジタルシングルCD',
         lang: 'ja',
         display: 'standalone',
@@ -54,6 +57,7 @@ export default defineConfig({
         // 音源（mp4）は容量が大きいので事前キャッシュには入れない。初回起動時にアプリが
         // 一括ダウンロードして実行時キャッシュへ入れる（src/download.ts）。再生時の取りこぼしもここで拾う。
         // 画像は表示に必須なので事前キャッシュに含める（大きめのジャケット画像に合わせて上限を引き上げる）。
+        // mp3 / wav はリズムゲームの音源とヒット音（各ファイルは上限未満なので事前キャッシュに入る）
         globPatterns: ['**/*.{js,css,html,svg,png,webp,jpg,mp3,wav,webmanifest}'],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         navigateFallback: 'index.html',
